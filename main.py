@@ -3,7 +3,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
-    JoinEvent, MemberJoinedEvent
+    MemberJoinedEvent
 )
 import os, re, json
 
@@ -148,12 +148,6 @@ def handle_member_join(event):
             notify_admin(f"🚨【黑名單加入警報】\n「{name}」剛剛加入群組！\nUser ID：{user_id}\n請盡快手動踢除！")
 
 # ===== Bot 加入群組 =====
-@handler.add(JoinEvent)
-def handle_join(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="大家好！我是李氏小管家 🛡️\n我會自動偵測可疑連結，保護大家的安全！")
-    )
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
