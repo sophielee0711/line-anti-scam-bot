@@ -55,7 +55,9 @@ def get_name(group_id, user_id, source_type):
         return profile.display_name
     except:
         return user_id
-
+@app.route("/", methods=['GET'])
+def home():
+    return 'OK', 200
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
