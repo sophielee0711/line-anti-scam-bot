@@ -129,10 +129,16 @@ def handle_message(event):
             reasons.append("包含可疑關鍵字")
 
         # 群組警告
+        if has_url:
+            warning_msg = "⚠️【防詐提醒】\n有人分享了連結，請謹慎確認來源！\n🚫 請勿輕易點擊不明連結！"
+        else:
+            warning_msg = "⚠️【防詐提醒】\n偵測到可疑內容，請大家注意！\n🚫 如有疑慮請向管理員反映！"
+        
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=f"⚠️【防詐提醒】\n有人分享了連結，請謹慎確認來源！\n🚫 請勿輕易點擊不明連結！")
+            TextSendMessage(text=warning_msg)
         )
+
         # 私訊管理員
         notify_admin(f"⚠️【可疑訊息通知】\n發送者：{name}\nUser ID：{user_id}\n原因：{'、'.join(reasons)}\n內容：{text[:100]}")
 
